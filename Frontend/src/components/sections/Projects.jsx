@@ -334,16 +334,17 @@ const ProjectCard = ({ project, col, onClick, index }) => {
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ y: -8 }}
-      className="group flex flex-col h-full overflow-hidden rounded-2xl"
+      className="group flex flex-col overflow-hidden rounded-2xl"
       style={{
+        height: '480px',
         background: 'var(--bg-surface-strong)',
         border: `1.5px solid ${col.bg}33`,
         boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
         transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
       }}
     >
-      {/* Image Section */}
-      <div className="relative h-56 overflow-hidden bg-gradient-to-br" style={{ background: `linear-gradient(135deg, ${col.bg}22, ${col.bg}44)` }}>
+      {/* Image Section — fixed height */}
+      <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '200px', background: `linear-gradient(135deg, ${col.bg}22, ${col.bg}44)` }}>
         {imageUrl ? (
           <motion.img
             src={imageUrl}
@@ -357,7 +358,7 @@ const ProjectCard = ({ project, col, onClick, index }) => {
             <FaCode size={48} style={{ color: col.bg, opacity: 0.3 }} />
           </div>
         )}
-        
+
         {/* Top Badges */}
         <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
           <span className="px-3 py-1 rounded-full text-xs font-bold text-white" style={{ background: col.bg }}>
@@ -370,7 +371,7 @@ const ProjectCard = ({ project, col, onClick, index }) => {
           )}
         </div>
 
-        {/* Gallery Button */}
+        {/* Gallery count badge */}
         {hasMedia && (
           <button
             onClick={onClick}
@@ -388,109 +389,104 @@ const ProjectCard = ({ project, col, onClick, index }) => {
         )}
       </div>
 
-      {/* Content Section */}
-      <div className="flex flex-col flex-1 p-5">
-        {/* Title */}
-        <h3 className="text-lg sm:text-xl font-black leading-tight mb-2" style={{ color: 'var(--text-primary)' }}>
+      {/* Content Section — fills remaining height */}
+      <div className="flex flex-col flex-1 p-5 min-h-0">
+        {/* Title — fixed 2-line height */}
+        <h3 className="text-base font-black leading-tight mb-2 line-clamp-2" style={{ color: 'var(--text-primary)', minHeight: '2.5rem' }}>
           {project.title}
         </h3>
 
-        {/* Description */}
-        {project.description && (
-          <p className="text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
-            {project.description}
+        {/* Description — fixed 3-line clamp */}
+        <p className="text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--text-secondary)', minHeight: '2.5rem' }}>
+          {project.description || ''}
+        </p>
+
+        {/* Tech Stack — fixed height area */}
+        <div className="mb-3" style={{ minHeight: '3rem' }}>
+          <p className="text-[10px] uppercase tracking-widest font-bold mb-1.5" style={{ color: 'var(--text-muted)' }}>
+            Stack
           </p>
-        )}
-
-        {/* Tech Stack */}
-        {project.technologies?.length > 0 && (
-          <div className="mb-4">
-            <p className="text-[10px] uppercase tracking-widest font-bold mb-2" style={{ color: 'var(--text-muted)' }}>
-              Stack
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {project.technologies.slice(0, 4).map((t, i) => (
-                <span
-                  key={i}
-                  className="px-2 py-1 rounded-md text-[10px] font-semibold"
-                  style={{
-                    background: `${col.bg}22`,
-                    border: `1px solid ${col.bg}55`,
-                    color: col.bg,
-                  }}
-                >
-                  {t}
-                </span>
-              ))}
-              {(project.technologies?.length || 0) > 4 && (
-                <span
-                  className="px-2 py-1 rounded-md text-[10px] font-semibold"
-                  style={{
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  +{project.technologies.length - 4}
-                </span>
-              )}
-            </div>
+          <div className="flex flex-wrap gap-1.5">
+            {(project.technologies || []).slice(0, 3).map((t, i) => (
+              <span
+                key={i}
+                className="px-2 py-0.5 rounded-md text-[10px] font-semibold"
+                style={{
+                  background: `${col.bg}22`,
+                  border: `1px solid ${col.bg}55`,
+                  color: col.bg,
+                }}
+              >
+                {t}
+              </span>
+            ))}
+            {(project.technologies?.length || 0) > 3 && (
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold" style={{ color: 'var(--text-muted)' }}>
+                +{project.technologies.length - 3}
+              </span>
+            )}
           </div>
-        )}
+        </div>
 
-        {/* Spacer */}
+        {/* Spacer pushes buttons to bottom */}
         <div className="flex-1" />
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
+        {/* Action Buttons — 3 icon-only, centered */}
+        <div className="flex items-center justify-center gap-4 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
+          {/* View / Gallery */}
           <motion.button
             onClick={onClick}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-1 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 text-white transition-all"
+            whileHover={{ scale: 1.15, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            title="View project"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all"
             style={{
               background: `linear-gradient(135deg, ${col.bg}, ${col.accent})`,
-              boxShadow: `0 4px 12px ${col.bg}44`,
+              boxShadow: `0 4px 12px ${col.bg}55`,
             }}
           >
-            <FaEye size={12} /> View
+            <FaEye size={15} />
           </motion.button>
 
-          {project.liveUrl && (
-            <motion.a
-              href={toAbsoluteUrl(project.liveUrl)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-all"
-              style={{
-                background: 'var(--bg-surface)',
-                border: '1.5px solid var(--border)',
-                color: 'var(--text-primary)',
-              }}
-            >
-              <FaExternalLinkAlt size={11} />
-            </motion.a>
-          )}
+          {/* GitHub */}
+          <motion.a
+            href={project.githubUrl || undefined}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => { e.stopPropagation(); if (!project.githubUrl) e.preventDefault(); }}
+            whileHover={{ scale: 1.15, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            title="GitHub repo"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all"
+            style={{
+              background: `linear-gradient(135deg, ${col.bg}, ${col.accent})`,
+              boxShadow: `0 4px 12px ${col.bg}55`,
+              opacity: project.githubUrl ? 1 : 0.35,
+              cursor: project.githubUrl ? 'pointer' : 'not-allowed',
+            }}
+          >
+            <FaGithub size={15} />
+          </motion.a>
 
-          {project.githubUrl && (
-            <motion.a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-3 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center transition-all"
-              style={{
-                background: 'var(--bg-surface)',
-                border: '1.5px solid var(--border)',
-                color: 'var(--text-primary)',
-              }}
-            >
-              <FaGithub size={11} />
-            </motion.a>
-          )}
+          {/* Live Demo */}
+          <motion.a
+            href={project.liveUrl ? toAbsoluteUrl(project.liveUrl) : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => { e.stopPropagation(); if (!project.liveUrl) e.preventDefault(); }}
+            whileHover={{ scale: 1.15, y: -2 }}
+            whileTap={{ scale: 0.9 }}
+            title="Live demo"
+            className="w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all"
+            style={{
+              background: `linear-gradient(135deg, ${col.bg}, ${col.accent})`,
+              boxShadow: `0 4px 12px ${col.bg}55`,
+              opacity: project.liveUrl ? 1 : 0.35,
+              cursor: project.liveUrl ? 'pointer' : 'not-allowed',
+            }}
+          >
+            <FaExternalLinkAlt size={13} />
+          </motion.a>
         </div>
       </div>
     </motion.div>
@@ -549,8 +545,9 @@ const Projects = () => {
     api.get('/projects').then(res => setProjects(res.data.data || [])).catch(() => {});
   }, []);
 
-  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category).filter(Boolean)))];
-  const filtered = activeFilter === 'All' ? projects : projects.filter(p => p.category === activeFilter);
+  const sorted = [...projects].sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+  const categories = ['All', ...Array.from(new Set(sorted.map(p => p.category).filter(Boolean)))];
+  const filtered = activeFilter === 'All' ? sorted : sorted.filter(p => p.category === activeFilter);
 
   const handleCategoryChange = (cat) => {
     setActiveFilter(cat);
@@ -712,7 +709,7 @@ const Projects = () => {
             >
               <div className="flex gap-6 pb-4 px-4 sm:px-0 sm:pl-16 sm:pr-16 min-w-max">
                 {filtered.map((project, i) => (
-                  <div key={project._id || i} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4">
+                  <div key={project._id || i} className="flex-shrink-0" style={{ width: '300px' }}>
                     <ProjectCard
                       project={project}
                       col={getCol(project.category)}

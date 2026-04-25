@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaPaperPlane, FaArrowRight } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin, FaGithub, FaTwitter, FaInstagram, FaPaperPlane } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import api from '../../utils/api';
 
@@ -69,7 +69,7 @@ const Contact = () => {
 
             {/* email block */}
             <a href="mailto:manojaryal2003@gmail.com"
-              className="group flex items-center gap-4 p-4 rounded-2xl glass border border-white/5 hover:border-indigo-500/30 transition-all">
+              className="flex items-center gap-4 p-4 rounded-2xl glass border border-white/5 hover:border-indigo-500/30 transition-all">
               <div className="w-10 h-10 rounded-xl bg-indigo-600/20 flex items-center justify-center flex-shrink-0">
                 <FaEnvelope className="text-indigo-400" size={14} />
               </div>
@@ -77,7 +77,6 @@ const Contact = () => {
                 <p className="text-xs text-gray-500 mb-0.5 uppercase tracking-widest">Email</p>
                 <p className="text-sm text-white font-medium truncate">manojaryal2003@gmail.com</p>
               </div>
-              <FaArrowRight size={12} className="ml-auto text-gray-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
             </a>
 
             {/* availability */}
@@ -86,7 +85,7 @@ const Contact = () => {
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                 <p className="text-sm text-emerald-300 font-medium">Available for new projects</p>
               </div>
-              <p className="text-xs text-gray-500 mt-1 ml-5">Response time: within 24 hours</p>
+              <p className="text-xs text-gray-500 mt-1 ml-5">Response time: within 2 hours</p>
             </div>
 
             {/* socials */}

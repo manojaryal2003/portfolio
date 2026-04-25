@@ -68,14 +68,11 @@
     transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* custom cursor only on portfolio pages, not admin */
-  body.portfolio-cursor,
+  /* custom dot cursor on portfolio pages — restore pointer on interactive elements */
+  body.portfolio-cursor { cursor: none; }
   body.portfolio-cursor a,
   body.portfolio-cursor button,
-  body.portfolio-cursor input,
-  body.portfolio-cursor textarea,
-  body.portfolio-cursor select,
-  body.portfolio-cursor label { cursor: none; }
+  body.portfolio-cursor label { cursor: pointer; }
 
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--scrollbar-bg); }
@@ -166,25 +163,29 @@
   .text-glow   { text-shadow: 0 0 20px rgba(129,140,248,0.8), 0 0 40px rgba(129,140,248,0.4); }
 
   /* ── Cursor ── */
-  .cursor-dot {
-    width: 8px; height: 8px;
-    background: #818cf8;
-    border-radius: 50%;
-    position: fixed; pointer-events: none; z-index: 99999;
-    transform: translate(-50%,-50%);
-    transition: width 0.2s, height 0.2s, background 0.2s;
-    mix-blend-mode: difference;
-  }
   .cursor-ring {
-    width: 36px; height: 36px;
+    width: 34px; height: 34px;
+    background: transparent;
     border: 1.5px solid rgba(129,140,248,0.6);
     border-radius: 50%;
     position: fixed; pointer-events: none; z-index: 99998;
     transform: translate(-50%,-50%);
-    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s;
+    transition: opacity 0.15s;
+    box-shadow: 0 0 10px rgba(129,140,248,0.2);
   }
-  .cursor-dot.hovered  { width: 16px; height: 16px; background: #f472b6; }
-  .cursor-ring.hovered { width: 56px; height: 56px; border-color: rgba(244,114,182,0.5); }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 99999;
+    transform: translate(-50%,-50%);
+    transition: opacity 0.15s;
+    box-shadow: 0 0 8px rgba(244,114,182,0.9), 0 0 18px rgba(168,85,247,0.6), 0 0 30px rgba(244,114,182,0.3);
+  }
+  .cursor-dot.hovered,
+  .cursor-ring.hovered {
+    opacity: 0;
+  }
 
   /* ── Glitch ── */
   @keyframes glitch1 {

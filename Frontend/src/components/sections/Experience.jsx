@@ -272,10 +272,11 @@ const Experience = () => {
     api.get('/experience')
       .then(r => setExperiences(r.data.data || []))
       .catch(() => {});
+    return () => { document.body.style.overflow = ''; };
   }, []);
 
-  const open  = (exp) => { setSelected(exp); setActiveId(exp._id); };
-  const close = ()    => { setSelected(null); setActiveId(null); };
+  const open  = (exp) => { setSelected(exp); setActiveId(exp._id); document.body.style.overflow = 'hidden'; };
+  const close = ()    => { setSelected(null); setActiveId(null); document.body.style.overflow = ''; };
 
   const n    = experiences.length;
   const VH   = svgHeight(n);
@@ -290,7 +291,7 @@ const Experience = () => {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none"
         style={{ background:'radial-gradient(circle,rgba(168,85,247,0.06),transparent 70%)', filter:'blur(60px)' }} />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
 
         {/* heading */}
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }}
@@ -299,11 +300,7 @@ const Experience = () => {
           <h2 className="text-4xl sm:text-5xl font-black" style={{ color:'var(--text-primary)' }}>
             Work <span className="text-gradient">Experience</span>
           </h2>
-          <p className="text-sm mt-3 flex items-center gap-2" style={{ color:'var(--text-muted)' }}>
-            <span className="w-4 h-px inline-block" style={{ background:'var(--border-accent)' }} />
-            Click an avatar to explore each role
-            <span className="w-4 h-px inline-block" style={{ background:'var(--border-accent)' }} />
-          </p>
+          
         </motion.div>
 
         {n === 0 ? (

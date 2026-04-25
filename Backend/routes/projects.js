@@ -67,36 +67,45 @@ router.put('/:id', protect, mediaFields, async (req, res) => {
     const project = await Project.findById(req.params.id);
     if (!project) return res.status(404).json({ success: false, message: 'Project not found' });
 
-    const updateData = { ...req.body };
-    if (req.body.technologies) {
-      updateData.technologies = typeof req.body.technologies === 'string'
-        ? JSON.parse(req.body.technologies)
-        : req.body.technologies;
+    // only pick safe scalar fields from body — never trust serialized objects
+    const allowedFields = ['title', 'description', 'technologies', 'category',
+                           'githubUrl', 'liveUrl', 'completionDate', 'isFeatured',
+                           'order', 'removedImageIds', 'removeVideo'];
+    const updateData = {};
+    for (const key of allowedFields) {
+      if (req.body[key] !== undefined) updateData[key] = req.body[key];
     }
 
-    // new images uploaded — delete old ones then replace
-    if (req.files?.images?.length) {
-      if (project.images?.length) {
-        await Promise.all(project.images.map(img =>
-          img.publicId ? cloudinary.uploader.destroy(img.publicId) : Promise.resolve()
-        ));
-      } else if (project.imagePublicId) {
-        await cloudinary.uploader.destroy(project.imagePublicId);
-      }
-      updateData.images = req.files.images.map(f => ({ url: f.path, publicId: f.filename }));
-      updateData.image = req.files.images[0].path;
-      updateData.imagePublicId = req.files.images[0].filename;
+    if (updateData.technologies) {
+      updateData.technologies = typeof updateData.technologies === 'string'
+        ? JSON.parse(updateData.technologies)
+        : updateData.technologies;
     }
 
-    // handle removed images sent from frontend as JSON
+    // start with a mutable copy of existing images
+    let currentImages = [...(project.images || [])];
+
+    // remove individually-deleted images first
     if (req.body.removedImageIds) {
       const ids = JSON.parse(req.body.removedImageIds);
       await Promise.all(ids.map(id => cloudinary.uploader.destroy(id)));
-      updateData.images = (project.images || []).filter(img => !ids.includes(img.publicId));
-      if (updateData.images.length) {
-        updateData.image = updateData.images[0].url;
-        updateData.imagePublicId = updateData.images[0].publicId;
-      }
+      currentImages = currentImages.filter(img => !ids.includes(img.publicId));
+    }
+
+    // append newly uploaded images
+    if (req.files?.images?.length) {
+      const newImgs = req.files.images.map(f => ({ url: f.path, publicId: f.filename }));
+      currentImages = [...currentImages, ...newImgs];
+    }
+
+    // persist merged image list
+    updateData.images = currentImages;
+    if (currentImages.length) {
+      updateData.image = currentImages[0].url;
+      updateData.imagePublicId = currentImages[0].publicId;
+    } else {
+      updateData.image = '';
+      updateData.imagePublicId = '';
     }
 
     // new video uploaded
@@ -113,6 +122,9 @@ router.put('/:id', protect, mediaFields, async (req, res) => {
       await cloudinary.uploader.destroy(project.video.publicId, { resource_type: 'video' });
       updateData.video = { url: '', publicId: '' };
     }
+
+    delete updateData.removedImageIds;
+    delete updateData.removeVideo;
 
     const updated = await Project.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
     res.json({ success: true, data: updated });

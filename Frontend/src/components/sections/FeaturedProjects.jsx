@@ -27,7 +27,7 @@ const FeaturedProjects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             Featured <span className="text-gradient">Work</span>

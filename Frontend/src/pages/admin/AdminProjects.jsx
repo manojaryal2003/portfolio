@@ -81,12 +81,14 @@ const Modal = ({ project, onClose, onSave }) => {
       };
 
       const fd = new FormData();
+      const skipKeys = new Set(['_id', '__v', 'createdAt', 'updatedAt', 'images', 'video', 'image', 'imagePublicId']);
       Object.entries(form).forEach(([k, v]) => {
+        if (skipKeys.has(k)) return;
         if (k === 'technologies') {
           fd.append(k, JSON.stringify(v.split(',').map(t => t.trim()).filter(Boolean)));
         } else if ((k === 'liveUrl' || k === 'githubUrl') && v) {
           fd.append(k, normalizeUrl(v));
-        } else {
+        } else if (v !== null && v !== undefined) {
           fd.append(k, v);
         }
       });

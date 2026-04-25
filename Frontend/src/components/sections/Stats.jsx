@@ -74,13 +74,13 @@ const Stats = () => {
   const displayStats = stats.length > 0 ? stats : defaultStats;
 
   return (
-    <section ref={ref} className="py-20 relative overflow-hidden bg-stats">
+    <section ref={ref} className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-stats">
       <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
       {/* divider line top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
           {displayStats.map((stat, i) => (
             <StatItem key={stat._id || i} stat={stat} i={i} inView={inView} />
