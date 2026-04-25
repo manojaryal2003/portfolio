@@ -144,7 +144,7 @@ const Contact = () => {
                         value={form.name}
                         onChange={e => setForm({ ...form, name: e.target.value })}
                         required
-                        placeholder="John Doe"
+                        placeholder="Manoj Aryal"
                         className={inputClass}
                       />
                     </div>
@@ -155,7 +155,7 @@ const Contact = () => {
                         value={form.email}
                         onChange={e => setForm({ ...form, email: e.target.value })}
                         required
-                        placeholder="john@example.com"
+                        placeholder="manojaryal@example.com"
                         className={inputClass}
                       />
                     </div>
