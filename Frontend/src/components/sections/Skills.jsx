@@ -126,7 +126,6 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mb-10"
         >
-          <p className="text-indigo-400 text-sm font-mono uppercase tracking-widest mb-2">// tech stack</p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             Skills & <span className="text-gradient">Technologies</span>
           </h2>

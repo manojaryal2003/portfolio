@@ -27,6 +27,8 @@ const Services = () => {
     api.get('/services').then(res => setServices(res.data.data)).catch(() => {});
   }, []);
 
+  if (!services.length) return null;
+
   return (
     <section id="services" className="section-padding relative overflow-hidden bg-services">
 

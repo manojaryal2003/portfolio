@@ -236,8 +236,8 @@
    used throughout the public portfolio sections
 ───────────────────────────────────────── */
 .light {
-  /* white text → near-black */
-  .text-white   { color: #0f172a !important; }
+  /* white text → near-black (except buttons that must stay white) */
+  .text-white:not(.btn-white-text)   { color: #0f172a !important; }
 
   /* gray text shades */
   .text-gray-300 { color: #334155 !important; }

@@ -4,7 +4,6 @@ import Footer from '../components/layout/Footer';
 import WhatsAppButton from '../components/layout/WhatsAppButton';
 import Hero from '../components/sections/Hero';
 import About from '../components/sections/About';
-import Stats from '../components/sections/Stats';
 import Skills from '../components/sections/Skills';
 import Services from '../components/sections/Services';
 import Projects from '../components/sections/Projects';
@@ -26,7 +25,6 @@ const Home = () => {
       <Navbar />
       <ErrorBoundary name="Hero"><Hero /></ErrorBoundary>
       <ErrorBoundary name="About"><About /></ErrorBoundary>
-      <ErrorBoundary name="Stats"><Stats /></ErrorBoundary>
       <ErrorBoundary name="Skills"><Skills /></ErrorBoundary>
       <ErrorBoundary name="Services"><Services /></ErrorBoundary>
       <ErrorBoundary name="FeaturedProjects"><FeaturedProjects /></ErrorBoundary>

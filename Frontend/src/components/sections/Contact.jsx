@@ -47,7 +47,6 @@ const Contact = () => {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <p className="text-indigo-400 text-sm font-mono uppercase tracking-widest mb-2">// get in touch</p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             Let's <span className="text-gradient">Build Together</span>
           </h2>

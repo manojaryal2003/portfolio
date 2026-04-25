@@ -193,8 +193,7 @@ const Hero = () => {
 
               {/* name */}
               <h1
-                className="glitch text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-3 text-white"
-                data-text={`Hi, I'm\n${hero?.name || 'Smart IT'}`}
+                className="text-5xl sm:text-6xl lg:text-7xl font-black leading-none mb-3 text-white"
               >
                 <span className="text-gray-400 text-3xl sm:text-4xl font-light block mb-1">Hi, I'm</span>
                 <span className="text-gradient">{hero?.name || 'Smart IT Solution'}</span>
@@ -218,7 +217,7 @@ const Hero = () => {
                   onClick={() => scrollTo('projects')}
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
-                  className="group relative px-7 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold flex items-center gap-2 overflow-hidden transition-colors"
+                  className="group relative px-7 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white btn-white-text rounded-xl font-semibold flex items-center gap-2 overflow-hidden transition-colors"
                 >
                   <span className="relative z-10">View Work</span>
                   <FaArrowRight size={14} className="relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -229,7 +228,8 @@ const Hero = () => {
                   onClick={() => scrollTo('contact')}
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
-                  className="px-7 py-3.5 neon-border text-white rounded-xl font-semibold flex items-center gap-2 hover:bg-white/5 transition-colors"
+                  className="px-7 py-3.5 neon-border rounded-xl font-semibold flex items-center gap-2 hover:bg-white/5 transition-colors"
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   <FaEnvelope size={14} /> Hire Me
                 </motion.button>

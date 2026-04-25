@@ -29,7 +29,6 @@ const FeaturedProjects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-indigo-400 text-sm font-mono uppercase tracking-widest mb-2">// selected work</p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             Featured <span className="text-gradient">Work</span>
           </h2>

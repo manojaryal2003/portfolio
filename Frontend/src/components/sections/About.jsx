@@ -26,7 +26,6 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <p className="text-indigo-400 text-sm font-mono uppercase tracking-widest mb-2">// about me</p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             The person <span className="text-gradient">behind the code</span>
           </h2>

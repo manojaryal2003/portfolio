@@ -61,8 +61,9 @@ const Navbar = () => {
             whileHover={{ scale: 1.02 }}
             className="font-black text-lg tracking-tight"
           >
-            <span className="text-gradient">Smart</span>
-            <span className="text-white">IT</span>
+            <span className="text-gradient">M</span>
+            <span className="text-gradient">.</span>
+            <span className="text-gradient">A</span>
           </motion.a>
 
           {/* desktop links */}
@@ -111,7 +112,7 @@ const Navbar = () => {
               onClick={e => { e.preventDefault(); go('#contact'); }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="hidden md:block px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-semibold transition-colors"
+              className="hidden md:block px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white btn-white-text rounded-lg text-sm font-semibold transition-colors"
             >
               Hire Me
             </motion.a>

@@ -62,7 +62,6 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="mb-14"
         >
-          <p className="text-indigo-400 text-sm font-mono uppercase tracking-widest mb-2">// client feedback</p>
           <h2 className="text-4xl sm:text-5xl font-black text-white">
             What Clients <span className="text-gradient">Say</span>
           </h2>
