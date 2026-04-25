@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaReact, FaNodeJs, FaGitAlt, FaDocker, FaHtml5, FaCss3Alt } from 'react-icons/fa';
-import { SiJavascript, SiTailwindcss, SiMongodb, SiExpress, SiMysql, SiFirebase, SiPostman } from 'react-icons/si';
+import { SiJavascript, SiTailwindcss, SiMongodb, SiExpress, SiMysql, SiFirebase, SiPostman, SiNextdotjs, SiPostgresql } from 'react-icons/si';
 import api from '../../utils/api';
 
 const iconMap = {
   FaReact, FaNodeJs, FaGitAlt, FaDocker, FaHtml5, FaCss3Alt, FaGit: FaGitAlt,
   SiJavascript, SiTailwindcss, SiMongodb, SiExpress, SiMysql, SiFirebase, SiPostman,
+  SiNextdotjs, SiPostgresql,
 };
 
 const categoryColors = {
@@ -62,7 +63,7 @@ const SkillOrb = ({ name, proficiency, icon, index }) => {
           }
         </div>
       </div>
-      <p className="text-[10px] font-medium text-gray-400 group-hover:text-white transition-colors text-center leading-tight max-w-[52px] truncate">
+      <p className="text-[10px] font-medium text-gray-400 group-hover:text-white transition-colors text-center leading-tight w-max max-w-[72px] break-words">
         {name}
       </p>
     </motion.div>
