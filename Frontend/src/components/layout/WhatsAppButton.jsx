@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const WhatsAppButton = () => {
-  const phone = '919864576360';
+  const phone = '9779864576360';
   const message = 'Hello! I found your portfolio and would like to connect.';
 
   return (
