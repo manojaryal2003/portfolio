@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: rajendraaryal_mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - rajendraaryal_network
+
+  backend:
+    build: ./Backend
+    container_name: rajendraaryal_backend
+    restart: always
+    env_file: .env
+    depends_on:
+      - mongo
+    networks:
+      - rajendraaryal_network
+      - webproxy
+
+  frontend:
+    build: ./Frontend
+    container_name: rajendraaryal_frontend
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - rajendraaryal_network
+      - webproxy
+
+volumes:
+  mongo_data:
+
+networks:
+  rajendraaryal_network:
+    driver: bridge
+  webproxy:
+    external: true
