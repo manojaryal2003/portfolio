@@ -267,6 +267,14 @@ const Experience = () => {
   const [experiences, setExperiences] = useState([]);
   const [selected, setSelected]       = useState(null);
   const [activeId, setActiveId]       = useState(null);
+  const [isMobile, setIsMobile]       = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useEffect(() => {
     api.get('/experience')
@@ -281,6 +289,11 @@ const Experience = () => {
   const n    = experiences.length;
   const VH   = svgHeight(n);
   const path = buildSnakePath(n);
+  /* On mobile, crop the empty horizontal margins so avatars render ~1.7× bigger */
+  const mobileVBX = 150, mobileVBW = 700;
+  const viewBox = isMobile
+    ? `${mobileVBX} 0 ${mobileVBW} ${VH}`
+    : `0 0 ${VW} ${VH}`;
 
   return (
     <section id="experience" className="section-padding relative overflow-hidden bg-experience">
@@ -328,7 +341,7 @@ const Experience = () => {
 
             {/* ── Full-width SVG snake ── */}
             <svg
-              viewBox={`0 0 ${VW} ${VH}`}
+              viewBox={viewBox}
               preserveAspectRatio="xMidYMid meet"
               className="w-full"
               style={{ display:'block', overflow:'visible' }}
@@ -426,7 +439,7 @@ const Experience = () => {
                         <text x={x} y={y + 46}
                           textAnchor="middle" fontSize="11"
                           fontFamily="system-ui,sans-serif"
-                          fill="#1e293b">
+                          fill="rgba(255,255,255,0.6)">
                           {exp.startDate}{exp.isCurrent ? ' — Present' : exp.endDate ? ` — ${exp.endDate}` : ''}
                         </text>
                       </>
@@ -446,7 +459,7 @@ const Experience = () => {
                             <text x={labelX} y={y + 6}
                               textAnchor={anchor} fontSize="11"
                               fontFamily="system-ui,sans-serif"
-                              fill="#1e293b">
+                              fill="rgba(255,255,255,0.6)">
                               {exp.startDate}{exp.isCurrent ? ' — Present' : exp.endDate ? ` — ${exp.endDate}` : ''}
                             </text>
                           </>
